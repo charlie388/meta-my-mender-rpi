@@ -1,8 +1,9 @@
 # This project is extract version from meta-mender-community
 # https://github.com/mendersoftware/meta-mender-community
 # https://hub.mender.io/t/raspberry-pi-3-model-b-b/57
+# https://hub.mender.io/t/raspberry-pi-4-model-b/889/3
 # https://hub.mender.io/t/how-to-configure-networking-using-systemd-in-yocto-project/1097
-# I tested this on rpi-3-b and rpi-3-b-plus
+# I tested this on rpi-3-b. rpi-3-b-plus and rpi-4-b
 
 mkdir my-mender-rpi
 cd my-mender-rpi
