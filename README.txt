@@ -4,10 +4,6 @@
 # https://hub.mender.io/t/how-to-configure-networking-using-systemd-in-yocto-project/1097
 # I was tested on rpi-3-b and rpi-3-b-plus
 
-# How to use "repo" after install git
-git config --global user.name "XXX"
-git config --global user.email XXX@XXX
-
 mkdir my-mender-rpi
 cd my-mender-rpi
 repo init -u git@github.com:charlie388/meta-my-mender-rpi.git -b kirkstone
