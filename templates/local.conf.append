@@ -14,7 +14,9 @@ INHERIT += "rm_work"
 # must have different names because Mender will skip installation of an Artifact
 # if it is already installed.
 MENDER_ARTIFACT_NAME = "release-1"
-# MENDER_DTB_NAME_FORCE = "bcm2710-rpi-3-b.dtb" or "bcm2710-rpi-3-b-plus.dtb"
+# MENDER_DTB_NAME_FORCE = "bcm2710-rpi-3-b.dtb" or
+# "bcm2710-rpi-3-b-plus.dtb" or 
+# "bcm2711-rpi-4-b.dtb"
 MENDER_DTB_NAME_FORCE = "bcm2710-rpi-3-b.dtb"
 
 INHERIT += "mender-full"
