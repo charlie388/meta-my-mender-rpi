@@ -2,7 +2,7 @@
 # https://github.com/mendersoftware/meta-mender-community
 # https://hub.mender.io/t/raspberry-pi-3-model-b-b/57
 # https://hub.mender.io/t/how-to-configure-networking-using-systemd-in-yocto-project/1097
-# I was tested on rpi-3-b and rpi-3-b-plus
+# I tested this on rpi-3-b and rpi-3-b-plus
 
 mkdir my-mender-rpi
 cd my-mender-rpi
