@@ -1,0 +1,94 @@
+
+DL_DIR ?= "${TOPDIR}/../../yocto-downloads"
+SSTATE_DIR ?= "${TOPDIR}/../../yocto-sstate-cache"
+BB_GENERATE_MIRROR_TARBALLS = "1"
+BB_NO_NETWORK = "0"
+
+# Appended fragment from meta-mender-community/templates
+
+# This really saves a lot of disk space!
+INHERIT += "rm_work"
+
+# The name of the disk image and Artifact that will be built.
+# This is what the device will report that it is running, and different updates
+# must have different names because Mender will skip installation of an Artifact
+# if it is already installed.
+MENDER_ARTIFACT_NAME = "release-1"
+# MENDER_DTB_NAME_FORCE = "bcm2710-rpi-3-b.dtb" or "bcm2710-rpi-3-b-plus.dtb"
+MENDER_DTB_NAME_FORCE = "bcm2710-rpi-3-b.dtb"
+
+INHERIT += "mender-full"
+
+DISTRO_FEATURES:append = " systemd"
+VIRTUAL-RUNTIME_init_manager = "systemd"
+DISTRO_FEATURES_BACKFILL_CONSIDERED = "sysvinit"
+VIRTUAL-RUNTIME_initscripts = ""
+# Since yocto 3.0 below is how to chang init to systemd 
+#INIT_MANAGER = "systemd"
+
+# Build for Mender production setup (on-prem)
+#
+# https://docs.mender.io/artifacts/building-for-production
+#
+# Uncomment below and update the URL to match your configured domain
+# name and provide the path to the generated server.crt file.
+#
+# NOTE! It is recommend that you provide below information in your custom
+# Yocto layer and this is only for demo purposes. See linked documentation
+# for additional information.
+MENDER_SERVER_URL = "https://mender.example.com"
+#FILESEXTRAPATHS:prepend:pn-mender := "/home/charlie/workspace/yocto/mender-raspberrypi-kirkstone/build/cert:"
+#SRC_URI:append:pn-mender = " file://server.crt"
+
+# Mender storage configuration
+#
+# More details on these variables is available at
+#    https://docs.mender.io/devices/yocto-project/partition-configuration#configuring-storage
+#
+# Also, please be sure to check other config files as other
+# layers, config fragments, etc may attempt to set values
+# for specific platforms.  Using "bitbake -e <image-name>"
+# can help determine which files are setting these values
+# in a given configuration.
+#
+# MENDER_STORAGE_TOTAL_SIZE_MB = "2048"
+# MENDER_BOOT_PART_SIZE_MB = "16"
+# MENDER_DATA_PART_SIZE_MB = "1024"
+# MENDER_STORAGE_DEVICE = "/dev/mmcblk0"
+# MENDER_BOOT_PART = "${MENDER_STORAGE_DEVICE_BASE}1"
+# MENDER_DATA_PART = "${MENDER_STORAGE_DEVICE_BASE}4"
+# MENDER_ROOTFS_PART_A = "${MENDER_STORAGE_DEVICE_BASE}2"
+# MENDER_ROOTFS_PART_B = "${MENDER_STORAGE_DEVICE_BASE}3"
+MENDER_STORAGE_DEVICE = "/dev/mmcblk0"
+MENDER_STORAGE_TOTAL_SIZE_MB = "512"
+MENDER_BOOT_PART_SIZE_MB = "32"
+MENDER_DATA_PART_SIZE_MB = "32"
+
+# Appended fragment from meta-mender-community/meta-mender-raspberrypi/templates
+
+MACHINE ?= "raspberrypi3"
+
+RPI_USE_U_BOOT = "1"
+# PREFERRED_RPROVIDER_u-boot-default-env = "libubootenv" or "u-boot"
+PREFERRED_RPROVIDER_u-boot-default-env = "u-boot"
+IMAGE_INSTALL:append = " kernel-image kernel-devicetree"
+IMAGE_FSTYPES:remove = " rpi-sdimg"
+
+MENDER_FEATURES_ENABLE:append = " mender-uboot mender-image-sd"
+MENDER_FEATURES_DISABLE:append = " mender-grub mender-image-uefi  mender-growfs-data"
+
+ENABLE_UART = "1"
+
+IMAGE_INSTALL:append = " tzdata"
+DEFAULT_TIMEZONE = "Asia/Taipei"
+
+DISTRO_FEATURES:append = " wifi"
+IMAGE_INSTALL:append = " linux-firmware-rpidistro-bcm43430 openssh"
+
+#EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
+#SECURITY_STRINGFORMAT = ""
+
+MENDER_UPDATE_POLL_INTERVAL_SECONDS = "5"
+MENDER_INVENTORY_POLL_INTERVAL_SECONDS = "5"
+
+EXTRA_IMAGE_FEATURES:append = " read-only-rootfs"

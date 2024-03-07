@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Inspired by "probe" in oe-init-build-env
+if [ -n "$BASH_SOURCE" ]; then
+    this_script=$BASH_SOURCE
+elif [ -n "$ZSH_NAME" ]; then
+    this_script=$0
+else
+    this_script="$(pwd)/setup-environment"
+fi
+
+script_dir=$(dirname "$this_script")
+script_dir=$(readlink -f "$script_dir")
+
+repo_dir=${script_dir}/sources/meta-my-mender-rpi
+build_dir=${script_dir}/build
+
+if [ -f ${build_dir}/conf/local.conf ]; then
+    . ${script_dir}/sources/poky/oe-init-build-env ${build_dir}
+    return 1
+fi
+
+. ${script_dir}/sources/poky/oe-init-build-env ${build_dir}
+# Common entries for Mender
+cp ${repo_dir}/templates/bblayers.conf.sample ${build_dir}/conf/bblayers.conf
+cat ${repo_dir}/templates/local.conf.append >> ${build_dir}/conf/local.conf
