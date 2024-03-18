@@ -87,7 +87,8 @@ DEFAULT_TIMEZONE = "Asia/Taipei"
 DISTRO_FEATURES:append = " wifi"
 IMAGE_INSTALL:append = " linux-firmware-rpidistro-bcm43430 openssh"
 
-#EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
+# chose one between ssh-server-openssh and ssh-server-dropbear
+EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
 #SECURITY_STRINGFORMAT = ""
 
 MENDER_UPDATE_POLL_INTERVAL_SECONDS = "5"
