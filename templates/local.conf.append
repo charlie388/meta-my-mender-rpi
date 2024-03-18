@@ -85,7 +85,7 @@ IMAGE_INSTALL:append = " tzdata"
 DEFAULT_TIMEZONE = "Asia/Taipei"
 
 DISTRO_FEATURES:append = " wifi"
-IMAGE_INSTALL:append = " linux-firmware-rpidistro-bcm43430 openssh"
+IMAGE_INSTALL:append = " linux-firmware-rpidistro-bcm43430"
 
 # chose one between ssh-server-openssh and ssh-server-dropbear
 EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
